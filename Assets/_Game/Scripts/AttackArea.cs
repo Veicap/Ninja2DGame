@@ -6,13 +6,19 @@ public class AttackArea : MonoBehaviour
 {
 
     private Character character;
+    private CrateObject crate;
 
     public Character Character => character;    
+
     public void HitTarget()
     {
         if(character != null)
         {
             character.OnHit(20);
+        }
+        if (crate != null)
+        {
+            crate.SpawnGift();
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -23,7 +29,7 @@ public class AttackArea : MonoBehaviour
         }
         if(collision.CompareTag("Crate"))
         {
-            collision.GetComponent<CrateObject>().SpawnGift();
+            crate = collision.GetComponent<CrateObject>();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

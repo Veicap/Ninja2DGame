@@ -28,11 +28,13 @@ public class Player : Character
     private bool isFlip = false;
     private bool isAttack = false;
     private bool isThrow = false;
+    private bool canDoubleThrow = false;
 
     private float counterTimeAttack;
     private float counterTimeThrow;
     private float counterTimeRevise;
     private Vector3 savePoint;
+   
 
     
     
@@ -160,6 +162,7 @@ public class Player : Character
         {
             isAttack = true;
             attackArea.GetComponent<AttackArea>().HitTarget();
+            
             counterTimeAttack = timeToAttack;
         }
     }
@@ -169,6 +172,12 @@ public class Player : Character
         {
             isThrow = true;
             Instantiate(kunaiPrefab, kunaiPoint.position, kunaiPoint.rotation);
+            if (canDoubleThrow)
+            {
+                Debug.Log("Doubl throw");
+                Vector3 newKunaiPosition  = kunaiPoint.position + new Vector3(1f,0f,0);
+                Instantiate(kunaiPrefab, newKunaiPosition, kunaiPoint.rotation);
+            }
             counterTimeThrow = timeToThrow;
         }
        
@@ -222,7 +231,7 @@ public class Player : Character
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Coin")
+        if(collision.CompareTag("Coin"))
         {
             totalCoin++;
             PlayerPrefs.SetInt("coin", totalCoin);
@@ -230,10 +239,16 @@ public class Player : Character
             Destroy(collision.gameObject);
             
         }
-        if(collision.tag == "DeathZone")
+        if(collision.CompareTag("DeathZone"))
         {
             isDeath = true;
             
+        }
+        if(collision.CompareTag("KunaiGift"))
+        {
+            canDoubleThrow = true;
+            Destroy(collision.gameObject);
+            Debug.Log("Collision with kunai");
         }
     }
 }
