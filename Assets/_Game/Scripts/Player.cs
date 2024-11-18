@@ -248,7 +248,19 @@ public class Player : Character
         {
             canDoubleThrow = true;
             Destroy(collision.gameObject);
-            Debug.Log("Collision with kunai");
+           
+        }
+        if(collision.CompareTag("HiddenMap"))
+        {
+            collision.GetComponent<HiddenMap>().Hide();
+            Debug.Log("Player interact hidden map");
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("HiddenMap"))
+        {
+            collision.GetComponent<HiddenMap>().Show();
         }
     }
 }

@@ -68,6 +68,7 @@
     <Compile Include="Assets\_Game\Scripts\Coin.cs" />
     <Compile Include="Assets\_Game\Scripts\AttackArea.cs" />
     <Compile Include="Assets\_Game\Scripts\EnemyVisual.cs" />
+    <Compile Include="Assets\_Game\Scripts\HiddenMap.cs" />
     <Compile Include="Assets\_Game\Scripts\CombatText.cs" />
     <Compile Include="Assets\_Game\Scripts\StateMachine\PartrolState.cs" />
     <Compile Include="Assets\_Game\Scripts\Character.cs" />

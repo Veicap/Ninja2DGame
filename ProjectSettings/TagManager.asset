@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Crate
   - KunaiGift
+  - HiddenMap
   layers:
   - Default
   - TransparentFX
