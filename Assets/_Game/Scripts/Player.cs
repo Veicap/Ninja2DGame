@@ -15,7 +15,10 @@ public class Player : Character
     [SerializeField] float timeToThrow;
     [SerializeField] float timeToAttack;
     [SerializeField] float timeToRevise;
+    [SerializeField] float climbSpeed;
     [SerializeField] HeathBarCanvas heathBarCanvas;
+    
+
     private Rigidbody2D rb;
     private float horizontal;
     private int totalCoin = 0;
@@ -29,6 +32,8 @@ public class Player : Character
     private bool isAttack = false;
     private bool isThrow = false;
     private bool canDoubleThrow = false;
+    private bool canClimb = false;
+    private bool climbing = false;  
 
     private float counterTimeAttack;
     private float counterTimeThrow;
@@ -174,7 +179,7 @@ public class Player : Character
             Instantiate(kunaiPrefab, kunaiPoint.position, kunaiPoint.rotation);
             if (canDoubleThrow)
             {
-                Debug.Log("Doubl throw");
+                Debug.Log("Double throw");
                 Vector3 newKunaiPosition  = kunaiPoint.position + new Vector3(1f,0f,0);
                 Instantiate(kunaiPrefab, newKunaiPosition, kunaiPoint.rotation);
             }
@@ -202,6 +207,26 @@ public class Player : Character
             isJumpIn = true;
             rb.AddForce(jumpForce * Vector2.up);
         }
+    }
+    public void Climb()
+    {
+        if(CanClimb())
+        {
+            rb.velocity = new Vector2(rb.velocity.x, speed);
+            climbing = true;
+            rb.gravityScale = 0f;
+        }
+    }
+    public bool Climbing()
+    {
+
+        if (climbing) return climbing;
+        else if(!canClimb) return false;
+        return false;
+    }
+    public bool CanClimb()
+    {
+        return canClimb;
     }
     public void SavePoint()
     {
@@ -255,6 +280,10 @@ public class Player : Character
             collision.GetComponent<HiddenMap>().Hide();
             Debug.Log("Player interact hidden map");
         }
+        if(collision.CompareTag("Rope"))
+        {
+            canClimb = true;
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -262,5 +291,11 @@ public class Player : Character
         {
             collision.GetComponent<HiddenMap>().Show();
         }
+        if (collision.CompareTag("Rope"))
+        {
+            canClimb = false;
+            rb.gravityScale = 1;
+        }
     }
+    
 }

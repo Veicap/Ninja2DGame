@@ -17,6 +17,10 @@ public class PlayerVisual : CharacterVisual
         {
             DeadAnim();
         }
+        else if(player.Climbing())
+        {
+            ChangeAnim("Climb");
+        }
         else if (player.IsAttacking())
         {
             AttackAnim();

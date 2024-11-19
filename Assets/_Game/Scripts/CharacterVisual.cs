@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterVisual : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    private string currentAnim = "idle";
+    private string currentAnim = "Idle";
     public void ChangeAnim(string nameAnim)
     {
         if (currentAnim != nameAnim)

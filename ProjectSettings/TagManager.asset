@@ -10,6 +10,7 @@ TagManager:
   - Crate
   - KunaiGift
   - HiddenMap
+  - Rope
   layers:
   - Default
   - TransparentFX
